@@ -1,6 +1,7 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { ConfigProvider } from 'antd';
+import { HashRouter } from 'react-router-dom';
 import zhCN from 'antd/locale/zh_CN';
 import App from './App';
 
@@ -9,7 +10,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // 渲染应用
 root.render(
-    <ConfigProvider locale={zhCN}>
-        <App />
-    </ConfigProvider>
+    <HashRouter>
+        <ConfigProvider locale={zhCN}>
+            <App />
+        </ConfigProvider>
+    </HashRouter>
 ); 

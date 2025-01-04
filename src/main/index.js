@@ -7,7 +7,7 @@ const { app, BrowserWindow, ipcMain, globalShortcut, dialog } = require('electro
 const path = require('path')
 
 // 添加仓库服务的引用
-const { createRepository, getRepositories, deleteRepository } = require('./services/repository');
+const { createRepository, getRepositories, deleteRepository, updateRepository } = require('./services/repository');
 
 let mainWindow;
 const detailWindows = new Set();  // 用于管理所有详情窗口
@@ -275,4 +275,19 @@ ipcMain.handle('window:openRepository', async (event, id) => {
             hash: `/repository/${id}`     // 路由参数
         }
     );
+}); 
+
+// 添加更新仓库的处理器
+ipcMain.handle('repository:update', async (event, { id, name }) => {
+    try {
+        await updateRepository(id, { name });
+        return {
+            success: true
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.message
+        };
+    }
 }); 

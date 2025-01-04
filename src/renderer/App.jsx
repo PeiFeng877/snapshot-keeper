@@ -10,17 +10,10 @@ const { Header, Content } = Layout;
 const { ipcRenderer } = window.require('electron');
 
 function App() {
-  // 获取路由相关的 hooks
   const location = useLocation();
   const navigate = useNavigate();
-
-  // 通过 URL search 参数判断窗口类型
   const isDetailWindow = window.location.search.includes('repository=detail');
 
-  /**
-   * 处理窗口最小化
-   * 根据窗口类型发送不同的最小化事件
-   */
   const handleMinimize = () => {
     if (isDetailWindow) {
       ipcRenderer.send('window-minimize-detail');
@@ -29,10 +22,6 @@ function App() {
     }
   };
 
-  /**
-   * 处理窗口最大化/还原
-   * 根据窗口类型发送不同的最大化事件
-   */
   const handleMaximize = () => {
     if (isDetailWindow) {
       ipcRenderer.send('window-maximize-detail');
@@ -41,11 +30,6 @@ function App() {
     }
   };
 
-  /**
-   * 处理窗口关闭
-   * 详情窗口：只关闭当前窗口
-   * 主窗口：可能触发应用退出
-   */
   const handleClose = () => {
     if (isDetailWindow) {
       ipcRenderer.send('window-close-detail');
@@ -54,17 +38,12 @@ function App() {
     }
   };
 
-  /**
-   * 处理返回主页
-   * 通过路由导航回到仓库列表页
-   */
   const handleHome = () => {
     navigate('/');
   };
 
   return (
     <Layout style={{ height: '100vh' }}>
-      {/* 自定义标题栏 */}
       <Header style={{ 
         height: '28px', 
         lineHeight: '28px',
@@ -74,19 +53,17 @@ function App() {
         display: 'flex', 
         alignItems: 'center',
         justifyContent: 'space-between',
-        WebkitAppRegion: 'drag' // 使标题栏可拖动
+        WebkitAppRegion: 'drag'
       }}>
-        {/* 左侧区域：根据窗口类型显示不同内容 */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {isDetailWindow ? (
-            // 详情窗口：显示主页图标和标题
             <>
               <Button 
                 type="text"
                 icon={<HomeOutlined />}
                 onClick={handleHome}
                 style={{ 
-                  WebkitAppRegion: 'no-drag',  // 按钮区域不可拖动
+                  WebkitAppRegion: 'no-drag',
                   width: '28px', 
                   height: '28px',
                   marginRight: '8px'
@@ -95,7 +72,6 @@ function App() {
               <span style={{ fontSize: '12px' }}>仓库详情</span>
             </>
           ) : (
-            // 主窗口：显示应用图标和名称
             <>
               <img src={icon} alt="logo" style={{ width: '16px', height: '16px', marginRight: '8px' }} />
               <span style={{ fontSize: '12px' }}>云中书</span>
@@ -103,9 +79,7 @@ function App() {
           )}
         </div>
 
-        {/* 右侧窗口控制按钮 */}
         <div style={{ WebkitAppRegion: 'no-drag', display: 'flex' }}> 
-          {/* 最小化按钮 */}
           <Button 
             type="text" 
             size="small" 
@@ -113,7 +87,6 @@ function App() {
             onClick={handleMinimize}
             style={{ width: '28px', height: '28px' }}
           />
-          {/* 最大化/还原按钮 */}
           <Button 
             type="text" 
             size="small" 
@@ -121,7 +94,6 @@ function App() {
             onClick={handleMaximize}
             style={{ width: '28px', height: '28px' }}
           />
-          {/* 关闭按钮 */}
           <Button 
             type="text" 
             size="small" 
@@ -133,7 +105,6 @@ function App() {
         </div>
       </Header>
 
-      {/* 主内容区：路由配置 */}
       <Content>
         <Routes>
           <Route path="/" element={<RepositoryList />} />
