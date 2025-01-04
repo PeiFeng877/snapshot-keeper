@@ -1,0 +1,49 @@
+{
+  "name": "snapshot-keeper",
+  "version": "1.0.0",
+  "description": "云中书 - 本地文件夹快照管理工具",
+  "main": "src/main/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --config webpack.config.js --watch",
+    "start": "npm run build && set NODE_ENV=development && electron .",
+    "dev": "concurrently \"npm run watch\" \"set NODE_ENV=development && electron .\""
+  },
+  "keywords": [
+    "snapshot",
+    "backup",
+    "file-manager"
+  ],
+  "author": "PeiFeng",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
+    "@electron-forge/cli": "^7.6.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "babel-loader": "^9.2.1",
+    "chokidar": "^4.0.3",
+    "css-loader": "^7.1.2",
+    "electron": "^33.2.1",
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-store": "^10.0.0",
+    "fs-extra": "^11.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.5.2",
+    "antd": "^5.22.7"
+  }
+}
